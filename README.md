@@ -2,4 +2,6 @@ SmokeOrFire
 ===========
 **Made by BB**
 
-card game
+In progress.
+Smoke (guessing a black card from the deck) or Fire (guessing a red card from the deck) card game.
+Writen in Objective C
