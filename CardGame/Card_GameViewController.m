@@ -21,6 +21,7 @@
 @property (strong, nonatomic) IBOutlet UIButton *displayCard;
 @property (strong, nonatomic) IBOutlet UIButton *fireButton;
 @property (strong, nonatomic) IBOutlet UILabel *CorrectOrDrinkLabel;
+@property (strong, nonatomic) IBOutlet UIButton *moveButton;
 
 
 /* Choices */
@@ -32,6 +33,8 @@
 
 @implementation Card_GameViewController
 
+#pragma mark - Initializers
+
 - (void) viewDidLoad
 {
     self.smokeOrFire = -1;
@@ -40,6 +43,10 @@
     self.CorrectOrDrinkLabel.hidden = YES;
 }
 
+#pragma mark - Helpers
+
+
+// TODO: need to hide flipCount
 - (void) setFlipCount:(int)flipCount
 {
     _flipCount = flipCount;
@@ -98,13 +105,15 @@
     return status;
 }
 
+#pragma mark - Button Presses
+
 - (IBAction)smokeButtonPressed:(UIButton *)sender
 {
     [self flipCard];
     self.smokeOrFire = SMOKE;
     [self checkSmokeOrFire];
-
-   // wait 2 seconds, then automatically flip the card back over
+    // TODO
+    // wait 2 seconds, then automatically flip the card back over
     // without using a new card
     // move the image to the top right corner
     // now do higher or lower
@@ -122,6 +131,16 @@
 //        NSLog(@"WRONG");
 }
 
+- (IBAction)moveButtonPressed:(id)sender
+{
+    // TODO: need to make this time delay work correctly
+    [self performSelector:@selector(displayCard) withObject:nil afterDelay:2.0];
+    CGRect btFrame = _displayCard.frame;
+    btFrame.origin.x = 15;
+    btFrame.origin.y = 30;
+    [self.displayCard setContentMode:UIViewContentModeScaleAspectFit];
+    _displayCard.frame = btFrame;
+}
 
 
 
