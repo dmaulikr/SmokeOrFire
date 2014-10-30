@@ -15,4 +15,10 @@ enum SmokeOrFire
     FIRE
 };
 
+enum HighOrLow
+{
+    HIGH,
+    LOW
+};
+
 #endif

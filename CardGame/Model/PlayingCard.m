@@ -57,6 +57,8 @@
         _rank = rank;
 }
 
+// TODO: why isnt this implementation working in GameLogic?
+//      doesnt recognize object suit??
 - (NSInteger) smokeOrFire
 {
     if ([self.suit isEqualToString:@"♣︎" ] || [self.suit isEqualToString:@"♠︎"])
@@ -68,6 +70,13 @@
     
 }
 
+//- (NSInteger) highOrLow
+//{
+//    // TODO: compare current card value to last card value
+//    return -1;
+//}
+
+// ability to be copied
 - (id) copyWithZone:(NSZone *)zone
 {
     PlayingCard *newCard = [[PlayingCard alloc] init];

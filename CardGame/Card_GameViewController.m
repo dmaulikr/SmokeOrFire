@@ -18,7 +18,7 @@
 /* Buttons */
 @property (strong, nonatomic) IBOutlet UIButton *leftButton;
 @property (strong, nonatomic) IBOutlet UIButton *displayCard;
-@property (strong, nonatomic) IBOutlet UIButton *fireButton;    // TODO: change my fucking name
+@property (strong, nonatomic) IBOutlet UIButton *rightButton;
 @property (strong, nonatomic) IBOutlet UILabel *CorrectOrDrinkLabel;
 
 @property (strong, nonatomic) UIButton *firstCard;
@@ -54,15 +54,19 @@
 {
     switch (gameState) {
         case SMOKEFIRE:
-            // Do some stuff
+            // Left Button init
             [self.leftButton setTitle:@"Smoke" forState:UIControlStateNormal];
-            // TODO: set the color of the text, etc
+            [self.leftButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
             
-            // TODO: set right button shit
+            // Right Button init
+            [self.rightButton setTitle:@"Fire" forState:UIControlStateNormal];
+            [self.rightButton setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
             
             break;
         case HIGHLOW:
             [self.leftButton setTitle:@"Higher" forState:UIControlStateNormal];
+            
+            [self.rightButton setTitle:@"Lower" forState:UIControlStateNormal];
             break;
         default:
             break;
@@ -72,7 +76,6 @@
 #pragma mark - Helpers
 
 
-// TODO: need to hide flipCount
 - (void) setFlipCount:(int)flipCount
 {
     _flipCount = flipCount;
@@ -81,44 +84,49 @@
 
 - (void) flipCard
 {
-    
     // use drawRandomCard
     // flip the card from the image side to the actual card side
     // displaying *the contents*
     
-    if ([_displayCard.currentTitle length] )
+    if ([self.displayCard.currentTitle length] )
     {
-        
-        [_displayCard setBackgroundImage:[UIImage imageNamed:@"cardBack"]
-                          forState:UIControlStateNormal];
-        [_displayCard setTitle:@"" forState:UIControlStateNormal];
+        [self.displayCard setBackgroundImage:[UIImage imageNamed:@"cardBack"]
+                                forState:UIControlStateNormal];
+        [self.displayCard setTitle:@"" forState:UIControlStateNormal];
     }
     else
     {
         NSLog(@"%@", [UIImage imageNamed:@"cardFront"]);
-        [_displayCard setBackgroundImage:[UIImage imageNamed:@"cardFront"]
-                          forState:UIControlStateNormal];
+        [self.displayCard setBackgroundImage:[UIImage imageNamed:@"cardFront"]
+                                forState:UIControlStateNormal];
         
+    // draws random card from deck, type: PlayingCard, varName: currentCard
         self.currentCard = (PlayingCard *)[self.deck drawRandomCard];
         
-        /*  for debugging
+    /*  for debugging
          
-         if ([newCard smokeOrFire] == SMOKE)
-         NSLog(@"Smoke");
-         else
-         NSLog(@"Fire");
-         */
+    if ([newCard smokeOrFire] == SMOKE)
+     NSLog(@"Smoke");
+    else
+     NSLog(@"Fire");    */
         
-        
-        [_displayCard setTitle:[self.currentCard contents] forState:UIControlStateNormal];
+        [self.displayCard setTitle:[self.currentCard contents] forState:UIControlStateNormal];
+        [self setTextColor:self.displayCard];
     }
     self.flipCount++;
 }
 
+// TODO: need help making this work
+//- (void) timeDelay:(NSInteger) num
+//{
+//    [self performSelector:@selector(moveCardToPositionIndex:) withObject:SMOKEFIRE afterDelay:2.0];
+//}
+
 // Returns yes if guessed correctly, no otherwise
 - (BOOL) checkSmokeOrFire
 {
-    [self performSelector:@selector(moveCardToPositionIndex:) withObject:SMOKEFIRE afterDelay:1.0];
+    // Time Delay for 2s before location change
+    [self performSelector:@selector(moveCardToPositionIndex:) withObject:SMOKEFIRE afterDelay:2.0];
     
     BOOL status = self.smokeOrFire == [self.currentCard smokeOrFire];
     
@@ -127,12 +135,22 @@
     else
         self.CorrectOrDrinkLabel.text = @"Take a drink";
 
-  // not working properly if use sizeToFit
+    // not working properly if use sizeToFit
     [self.CorrectOrDrinkLabel sizeToFit];
     self.CorrectOrDrinkLabel.hidden = NO;
     
     return status;
 }
+
+//- (BOOL) checkHigherLower
+//{
+//    // activate when finished
+//    //[self performSelector:@selector(moveCardToPositionIndex:) withObject:HIGHLOW afterDelay:2.0];
+//    
+//    
+//    // fix this
+//    return NO;
+//}
 
 #pragma mark - Button Presses
 
@@ -145,25 +163,31 @@
             [self checkSmokeOrFire];
             break;
         case HIGHLOW:
-            NSLog(@"I'm a guru");
+            NSLog(@"left button - state: highLow");
+            // TODO: implement highlow, card flow
         default:
             break;
     }
     
-    // TODO
-    // wait 2 seconds, then automatically flip the card back over
-    // without using a new card
-    // move the image to the top right corner
+
     // now do higher or lower
 }
 
 - (IBAction)rightButtonPressed:(UIButton *)sender
 {
-    [self flipCard];
-    self.smokeOrFire = FIRE;
-    [self checkSmokeOrFire];
+    switch (gameState) {
+        case SMOKEFIRE:
+            [self flipCard];
+            self.smokeOrFire = FIRE;
+            [self checkSmokeOrFire];
+            break;
+        case HIGHLOW:
+            NSLog(@"right button - state: highLow");
+            // TODO: implement highlow, card flow
+        default:
+            break;
+    }
     
-    // TODO: switch this shit. Look at the method above for reference
 }
 
 - (void) moveCardToPositionIndex:(NSInteger)index
@@ -182,7 +206,8 @@
             self.firstCard = [[UIButton alloc] initWithFrame:btFrame];
             [self.firstCard setBackgroundImage:[UIImage imageNamed:@"cardFront"] forState:UIControlStateNormal];
             [self.firstCard setTitle:[self.currentCard contents] forState:UIControlStateNormal];
-            self.firstCard.titleLabel.textColor = [UIColor blackColor];
+            [self setTextColor:self.firstCard];
+            
             NSLog(@"%@", [self.currentCard contents]);
             [self.view addSubview:self.firstCard];
             
@@ -190,10 +215,22 @@
             [self initButtons];
             break;
         }
+//        case HIGHLOW:
+//        {
+//            // TODD: implement this feature
+//        }
         default:
             break;
     }
     
+}
+
+- (void) setTextColor:(UIButton *)button
+{
+    if (self.currentCard.smokeOrFire == FIRE)
+        [button setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+    else
+        [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
 }
 
 

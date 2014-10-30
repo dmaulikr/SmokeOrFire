@@ -27,6 +27,7 @@
 		4335906619DBCDFB00188628 /* PlayingCardDeck.m in Sources */ = {isa = PBXBuildFile; fileRef = 4335906519DBCDFB00188628 /* PlayingCardDeck.m */; };
 		4335906A1A02097400188628 /* cardBack.png in Resources */ = {isa = PBXBuildFile; fileRef = 433590691A02097400188628 /* cardBack.png */; };
 		433590701A020E0300188628 /* cardFront.png in Resources */ = {isa = PBXBuildFile; fileRef = 4335906F1A020E0300188628 /* cardFront.png */; };
+		433590731A02D52E00188628 /* GameLogic.m in Sources */ = {isa = PBXBuildFile; fileRef = 433590721A02D52E00188628 /* GameLogic.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -70,6 +71,8 @@
 		4335906819DFAFA600188628 /* Utilities.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Utilities.h; sourceTree = "<group>"; };
 		433590691A02097400188628 /* cardBack.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cardBack.png; sourceTree = SOURCE_ROOT; };
 		4335906F1A020E0300188628 /* cardFront.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cardFront.png; sourceTree = SOURCE_ROOT; };
+		433590711A02D52E00188628 /* GameLogic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GameLogic.h; path = Model/GameLogic.h; sourceTree = "<group>"; };
+		433590721A02D52E00188628 /* GameLogic.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GameLogic.m; path = Model/GameLogic.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -184,6 +187,8 @@
 				4335905F19DBCD6000188628 /* Deck.m */,
 				4335906219DBCDA400188628 /* PlayingCard.m */,
 				4335906119DBCDA400188628 /* PlayingCard.h */,
+				433590711A02D52E00188628 /* GameLogic.h */,
+				433590721A02D52E00188628 /* GameLogic.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -294,6 +299,7 @@
 				4335903319DA5D4D00188628 /* main.m in Sources */,
 				4335906619DBCDFB00188628 /* PlayingCardDeck.m in Sources */,
 				4335903D19DA5D4D00188628 /* Card_GameViewController.m in Sources */,
+				433590731A02D52E00188628 /* GameLogic.m in Sources */,
 				4335905D19DBCCB700188628 /* Card.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
