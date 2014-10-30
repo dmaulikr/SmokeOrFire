@@ -12,17 +12,16 @@
 #import "Utilities.h"
 
 @interface Card_GameViewController ()
-@property (weak, nonatomic) IBOutlet UILabel *flipsLabel;
 @property (nonatomic) int flipCount;
 @property (nonatomic, strong) PlayingCardDeck *deck;
 
 /* Buttons */
-@property (strong, nonatomic) IBOutlet UIButton *smokeButton;
+@property (strong, nonatomic) IBOutlet UIButton *leftButton;
 @property (strong, nonatomic) IBOutlet UIButton *displayCard;
-@property (strong, nonatomic) IBOutlet UIButton *fireButton;
+@property (strong, nonatomic) IBOutlet UIButton *fireButton;    // TODO: change my fucking name
 @property (strong, nonatomic) IBOutlet UILabel *CorrectOrDrinkLabel;
-@property (strong, nonatomic) IBOutlet UIButton *moveButton;
 
+@property (strong, nonatomic) UIButton *firstCard;
 
 /* Choices */
 @property (nonatomic) NSInteger smokeOrFire;
@@ -32,6 +31,9 @@
 @end
 
 @implementation Card_GameViewController
+{
+    NSInteger gameState;
+}
 
 #pragma mark - Initializers
 
@@ -39,8 +41,32 @@
 {
     self.smokeOrFire = -1;
     self.deck = [[PlayingCardDeck alloc] init];
-    [self.displayCard setBackgroundImage:[UIImage imageNamed:@"cardback"] forState:UIControlStateNormal];
+    [self.displayCard setContentMode:UIViewContentModeScaleAspectFit];
+    [self.displayCard setBackgroundImage:[UIImage imageNamed:@"cardBack"] forState:UIControlStateNormal];
+    self.displayCard.userInteractionEnabled = NO;
+    self.firstCard.userInteractionEnabled = NO;
     self.CorrectOrDrinkLabel.hidden = YES;
+    
+    gameState = SMOKEFIRE;
+}
+
+- (void) initButtons
+{
+    switch (gameState) {
+        case SMOKEFIRE:
+            // Do some stuff
+            [self.leftButton setTitle:@"Smoke" forState:UIControlStateNormal];
+            // TODO: set the color of the text, etc
+            
+            // TODO: set right button shit
+            
+            break;
+        case HIGHLOW:
+            [self.leftButton setTitle:@"Higher" forState:UIControlStateNormal];
+            break;
+        default:
+            break;
+    }
 }
 
 #pragma mark - Helpers
@@ -50,7 +76,6 @@
 - (void) setFlipCount:(int)flipCount
 {
     _flipCount = flipCount;
-    self.flipsLabel.text = [NSString stringWithFormat:@"Flips: %d", self.flipCount];
     NSLog(@"flipCount = %d", self.flipCount);
 }
 
@@ -63,13 +88,15 @@
     
     if ([_displayCard.currentTitle length] )
     {
-        [_displayCard setBackgroundImage:[UIImage imageNamed:@"cardback"]
+        
+        [_displayCard setBackgroundImage:[UIImage imageNamed:@"cardBack"]
                           forState:UIControlStateNormal];
         [_displayCard setTitle:@"" forState:UIControlStateNormal];
     }
     else
     {
-        [_displayCard setBackgroundImage:[UIImage imageNamed:@"cardfront"]
+        NSLog(@"%@", [UIImage imageNamed:@"cardFront"]);
+        [_displayCard setBackgroundImage:[UIImage imageNamed:@"cardFront"]
                           forState:UIControlStateNormal];
         
         self.currentCard = (PlayingCard *)[self.deck drawRandomCard];
@@ -91,6 +118,8 @@
 // Returns yes if guessed correctly, no otherwise
 - (BOOL) checkSmokeOrFire
 {
+    [self performSelector:@selector(moveCardToPositionIndex:) withObject:SMOKEFIRE afterDelay:1.0];
+    
     BOOL status = self.smokeOrFire == [self.currentCard smokeOrFire];
     
     if (status)
@@ -107,11 +136,20 @@
 
 #pragma mark - Button Presses
 
-- (IBAction)smokeButtonPressed:(UIButton *)sender
+- (IBAction)leftButtonPressed:(UIButton *)sender
 {
-    [self flipCard];
-    self.smokeOrFire = SMOKE;
-    [self checkSmokeOrFire];
+    switch (gameState) {
+        case SMOKEFIRE:
+            [self flipCard];
+            self.smokeOrFire = SMOKE;
+            [self checkSmokeOrFire];
+            break;
+        case HIGHLOW:
+            NSLog(@"I'm a guru");
+        default:
+            break;
+    }
+    
     // TODO
     // wait 2 seconds, then automatically flip the card back over
     // without using a new card
@@ -119,30 +157,44 @@
     // now do higher or lower
 }
 
-- (IBAction)fireButtonPressed:(UIButton *)sender
+- (IBAction)rightButtonPressed:(UIButton *)sender
 {
     [self flipCard];
     self.smokeOrFire = FIRE;
     [self checkSmokeOrFire];
     
-//    if ([self checkSmokeOrFire])
-//        NSLog(@"CORRECT");
-//    else
-//        NSLog(@"WRONG");
+    // TODO: switch this shit. Look at the method above for reference
 }
 
-- (IBAction)moveButtonPressed:(id)sender
+- (void) moveCardToPositionIndex:(NSInteger)index
 {
-    // TODO: need to make this time delay work correctly
-    [self performSelector:@selector(displayCard) withObject:nil afterDelay:2.0];
-    CGRect btFrame = _displayCard.frame;
-    btFrame.origin.x = 15;
-    btFrame.origin.y = 30;
-    [self.displayCard setContentMode:UIViewContentModeScaleAspectFit];
-    _displayCard.frame = btFrame;
+    self.CorrectOrDrinkLabel.hidden = YES;
+    
+    switch (index) {
+        case SMOKEFIRE:
+        {
+            CGRect btFrame = self.displayCard.frame;
+            btFrame.origin.x = 15;
+            btFrame.origin.y = 30;
+            [self.displayCard setBackgroundImage:[UIImage imageNamed:@"cardBack"] forState:UIControlStateNormal];
+            [self.displayCard setTitle:@"" forState:UIControlStateNormal];
+            
+            self.firstCard = [[UIButton alloc] initWithFrame:btFrame];
+            [self.firstCard setBackgroundImage:[UIImage imageNamed:@"cardFront"] forState:UIControlStateNormal];
+            [self.firstCard setTitle:[self.currentCard contents] forState:UIControlStateNormal];
+            self.firstCard.titleLabel.textColor = [UIColor blackColor];
+            NSLog(@"%@", [self.currentCard contents]);
+            [self.view addSubview:self.firstCard];
+            
+            gameState = HIGHLOW;
+            [self initButtons];
+            break;
+        }
+        default:
+            break;
+    }
+    
 }
-
-
 
 
 @end

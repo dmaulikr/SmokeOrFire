@@ -68,4 +68,14 @@
     
 }
 
+- (id) copyWithZone:(NSZone *)zone
+{
+    PlayingCard *newCard = [[PlayingCard alloc] init];
+    newCard.suit = self.suit;
+    newCard.rank = self.rank;
+    
+    return newCard;
+    
+}
+
 @end

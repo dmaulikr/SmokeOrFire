@@ -25,6 +25,8 @@
 		4335906019DBCD6000188628 /* Deck.m in Sources */ = {isa = PBXBuildFile; fileRef = 4335905F19DBCD6000188628 /* Deck.m */; };
 		4335906319DBCDA400188628 /* PlayingCard.m in Sources */ = {isa = PBXBuildFile; fileRef = 4335906219DBCDA400188628 /* PlayingCard.m */; };
 		4335906619DBCDFB00188628 /* PlayingCardDeck.m in Sources */ = {isa = PBXBuildFile; fileRef = 4335906519DBCDFB00188628 /* PlayingCardDeck.m */; };
+		4335906A1A02097400188628 /* cardBack.png in Resources */ = {isa = PBXBuildFile; fileRef = 433590691A02097400188628 /* cardBack.png */; };
+		433590701A020E0300188628 /* cardFront.png in Resources */ = {isa = PBXBuildFile; fileRef = 4335906F1A020E0300188628 /* cardFront.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,6 +68,8 @@
 		4335906419DBCDFB00188628 /* PlayingCardDeck.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlayingCardDeck.h; path = Model/PlayingCardDeck.h; sourceTree = "<group>"; };
 		4335906519DBCDFB00188628 /* PlayingCardDeck.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PlayingCardDeck.m; path = Model/PlayingCardDeck.m; sourceTree = "<group>"; };
 		4335906819DFAFA600188628 /* Utilities.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Utilities.h; sourceTree = "<group>"; };
+		433590691A02097400188628 /* cardBack.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cardBack.png; sourceTree = SOURCE_ROOT; };
+		4335906F1A020E0300188628 /* cardFront.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cardFront.png; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -130,6 +134,8 @@
 				4335903C19DA5D4D00188628 /* Card_GameViewController.m */,
 				4335906719DBCE2100188628 /* Model */,
 				4335903E19DA5D4D00188628 /* Images.xcassets */,
+				4335906F1A020E0300188628 /* cardFront.png */,
+				433590691A02097400188628 /* cardBack.png */,
 				4335902D19DA5D4D00188628 /* Supporting Files */,
 			);
 			path = CardGame;
@@ -259,8 +265,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				433590701A020E0300188628 /* cardFront.png in Resources */,
 				4335903F19DA5D4D00188628 /* Images.xcassets in Resources */,
 				4335903119DA5D4D00188628 /* InfoPlist.strings in Resources */,
+				4335906A1A02097400188628 /* cardBack.png in Resources */,
 				4335903A19DA5D4D00188628 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

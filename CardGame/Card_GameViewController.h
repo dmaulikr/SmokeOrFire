@@ -10,4 +10,13 @@
 
 @interface Card_GameViewController : UIViewController
 
+enum GameState
+{
+    SMOKEFIRE,
+    HIGHLOW,
+    INOUT,
+    SUIT,
+    GIVETAKE,
+};
+
 @end
