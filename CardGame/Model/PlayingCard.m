@@ -59,22 +59,26 @@
 
 // TODO: why isnt this implementation working in GameLogic?
 //      doesnt recognize object suit??
-- (NSInteger) smokeOrFire
++ (NSInteger) smokeOrFire:(PlayingCard *)card
 {
-    if ([self.suit isEqualToString:@"♣︎" ] || [self.suit isEqualToString:@"♠︎"])
+    if ([card.suit isEqualToString:@"♣︎" ] || [card.suit isEqualToString:@"♠︎"])
         return SMOKE;
-    else if ([self.suit isEqualToString:@"♥︎"] || [self.suit isEqualToString:@"♦︎"])
+    else if ([card.suit isEqualToString:@"♥︎"] || [card.suit isEqualToString:@"♦︎"])
         return FIRE;
     else
         return -1;
     
 }
 
-//- (NSInteger) highOrLow
-//{
-//    // TODO: compare current card value to last card value
-//    return -1;
-//}
++ (NSInteger) highOrLow:(PlayingCard *)currentCard withPreviousCard:(PlayingCard *)previousCard
+{
+    if (currentCard.rank < previousCard.rank)
+        return LOW;
+    else if (currentCard.rank > previousCard.rank)
+        return HIGH;
+    else
+        return PUSH;
+}
 
 // ability to be copied
 - (id) copyWithZone:(NSZone *)zone
@@ -84,7 +88,6 @@
     newCard.rank = self.rank;
     
     return newCard;
-    
 }
 
 @end

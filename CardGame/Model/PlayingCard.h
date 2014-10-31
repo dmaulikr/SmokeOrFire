@@ -16,7 +16,10 @@
 + (NSArray *) validSuits;
 + (NSUInteger) maxRank;
 
-- (NSInteger) smokeOrFire;
+// Checkers
++ (NSInteger) smokeOrFire:(PlayingCard *)card;
++ (NSInteger) highOrLow:(PlayingCard *)currentCard withPreviousCard:(PlayingCard *)previousCard;
+
 - (NSString *) contents;
 
 @end

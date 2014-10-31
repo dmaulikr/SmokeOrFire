@@ -17,8 +17,9 @@ enum SmokeOrFire
 
 enum HighOrLow
 {
+    LOW,
     HIGH,
-    LOW
+    PUSH
 };
 
 #endif

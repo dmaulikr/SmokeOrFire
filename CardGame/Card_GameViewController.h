@@ -12,8 +12,8 @@
 
 enum GameState
 {
-    SMOKEFIRE,
-    HIGHLOW,
+    SMOKEFIRE   = 0,
+    HIGHLOW     = 1,
     INOUT,
     SUIT,
     GIVETAKE,

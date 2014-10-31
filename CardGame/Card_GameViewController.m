@@ -12,6 +12,7 @@
 #import "Utilities.h"
 
 @interface Card_GameViewController ()
+
 @property (nonatomic) int flipCount;
 @property (nonatomic, strong) PlayingCardDeck *deck;
 
@@ -21,12 +22,19 @@
 @property (strong, nonatomic) IBOutlet UIButton *rightButton;
 @property (strong, nonatomic) IBOutlet UILabel *CorrectOrDrinkLabel;
 
+/* Card Images (at top of screen) */
 @property (strong, nonatomic) UIButton *firstCard;
+@property (strong, nonatomic) UIButton *secondCard;
+@property (strong, nonatomic) UIButton *thirdCard;
+@property (strong, nonatomic) UIButton *fourthCard;
 
 /* Choices */
-@property (nonatomic) NSInteger smokeOrFire;
+@property (nonatomic) NSInteger smokeOrFireGuess;
+@property (nonatomic) NSInteger highOrLowGuess;
 
+/* Cards*/
 @property (nonatomic, strong) PlayingCard *currentCard;
+@property (nonatomic, strong) NSMutableArray *cards;    // of PlayingCard
 
 @end
 
@@ -39,13 +47,17 @@
 
 - (void) viewDidLoad
 {
-    self.smokeOrFire = -1;
+    self.smokeOrFireGuess = -1;
     self.deck = [[PlayingCardDeck alloc] init];
-    [self.displayCard setContentMode:UIViewContentModeScaleAspectFit];
-    [self.displayCard setBackgroundImage:[UIImage imageNamed:@"cardBack"] forState:UIControlStateNormal];
-    self.displayCard.userInteractionEnabled = NO;
+    
     self.firstCard.userInteractionEnabled = NO;
     self.CorrectOrDrinkLabel.hidden = YES;
+    
+    self.displayCard.userInteractionEnabled = NO;
+    [self.displayCard setContentMode:UIViewContentModeScaleAspectFit];
+    [self.displayCard setBackgroundImage:[UIImage imageNamed:@"cardBack"] forState:UIControlStateNormal];
+    
+    self.cards = [NSMutableArray array];
     
     gameState = SMOKEFIRE;
 }
@@ -65,8 +77,13 @@
             break;
         case HIGHLOW:
             [self.leftButton setTitle:@"Higher" forState:UIControlStateNormal];
-            
             [self.rightButton setTitle:@"Lower" forState:UIControlStateNormal];
+            
+            break;
+        case INOUT:
+            [self.leftButton setTitle:@"Inside" forState:UIControlStateNormal];
+            [self.rightButton setTitle:@"Outside" forState:UIControlStateNormal];
+            
             break;
         default:
             break;
@@ -88,10 +105,10 @@
     // flip the card from the image side to the actual card side
     // displaying *the contents*
     
-    if ([self.displayCard.currentTitle length] )
+    if ([self.displayCard.currentTitle length])
     {
         [self.displayCard setBackgroundImage:[UIImage imageNamed:@"cardBack"]
-                                forState:UIControlStateNormal];
+                                    forState:UIControlStateNormal];
         [self.displayCard setTitle:@"" forState:UIControlStateNormal];
     }
     else
@@ -112,45 +129,29 @@
         
         [self.displayCard setTitle:[self.currentCard contents] forState:UIControlStateNormal];
         [self setTextColor:self.displayCard];
+        
+        [self.cards addObject:[self.currentCard copy]];
     }
+    
     self.flipCount++;
 }
-
-// TODO: need help making this work
-//- (void) timeDelay:(NSInteger) num
-//{
-//    [self performSelector:@selector(moveCardToPositionIndex:) withObject:SMOKEFIRE afterDelay:2.0];
-//}
 
 // Returns yes if guessed correctly, no otherwise
 - (BOOL) checkSmokeOrFire
 {
-    // Time Delay for 2s before location change
-    [self performSelector:@selector(moveCardToPositionIndex:) withObject:SMOKEFIRE afterDelay:2.0];
-    
-    BOOL status = self.smokeOrFire == [self.currentCard smokeOrFire];
-    
-    if (status)
-        self.CorrectOrDrinkLabel.text = @"CORRECT";
-    else
-        self.CorrectOrDrinkLabel.text = @"Take a drink";
+    if ([self.cards count] <= SMOKEFIRE)
+        return NO;
 
-    // not working properly if use sizeToFit
-    [self.CorrectOrDrinkLabel sizeToFit];
-    self.CorrectOrDrinkLabel.hidden = NO;
-    
-    return status;
+    return (self.smokeOrFireGuess == [PlayingCard smokeOrFire:[self.cards objectAtIndex:SMOKEFIRE]]);
 }
 
-//- (BOOL) checkHigherLower
-//{
-//    // activate when finished
-//    //[self performSelector:@selector(moveCardToPositionIndex:) withObject:HIGHLOW afterDelay:2.0];
-//    
-//    
-//    // fix this
-//    return NO;
-//}
+- (BOOL) checkHigherLower
+{
+    if ([self.cards count] <= HIGHLOW)
+        return NO;
+    
+    return (self.highOrLowGuess == [PlayingCard highOrLow:[self.cards objectAtIndex:HIGHLOW] withPreviousCard:[self.cards objectAtIndex:SMOKEFIRE]]);
+}
 
 #pragma mark - Button Presses
 
@@ -159,18 +160,21 @@
     switch (gameState) {
         case SMOKEFIRE:
             [self flipCard];
-            self.smokeOrFire = SMOKE;
-            [self checkSmokeOrFire];
+            self.smokeOrFireGuess = SMOKE;
+            [self smokeOrFire];
+
             break;
         case HIGHLOW:
             NSLog(@"left button - state: highLow");
-            // TODO: implement highlow, card flow
+            [self flipCard];
+            self.highOrLowGuess = HIGH;
+            [self highOrLow];
+            
+            break;
         default:
             break;
     }
     
-
-    // now do higher or lower
 }
 
 - (IBAction)rightButtonPressed:(UIButton *)sender
@@ -178,20 +182,44 @@
     switch (gameState) {
         case SMOKEFIRE:
             [self flipCard];
-            self.smokeOrFire = FIRE;
-            [self checkSmokeOrFire];
+            self.smokeOrFireGuess = FIRE;
+            [self smokeOrFire];
+            
             break;
         case HIGHLOW:
             NSLog(@"right button - state: highLow");
-            // TODO: implement highlow, card flow
+            [self flipCard];
+            self.highOrLowGuess = LOW;
+            [self highOrLow];
+            
+            break;
         default:
             break;
     }
     
 }
 
-- (void) moveCardToPositionIndex:(NSInteger)index
+- (void) smokeOrFire
 {
+    [self performSelector:@selector(moveCardToPositionIndex:) withObject:[NSNumber numberWithInt:SMOKEFIRE] afterDelay:2.0];
+    [self setStatusLabelForCorrect:[self checkSmokeOrFire]];
+    
+    [self.CorrectOrDrinkLabel sizeToFit];
+    self.CorrectOrDrinkLabel.hidden = NO;
+}
+
+- (void) highOrLow
+{
+    [self performSelector:@selector(moveCardToPositionIndex:) withObject:[NSNumber numberWithInt:HIGHLOW] afterDelay:2.0];
+    [self setStatusLabelForCorrect:[self checkHigherLower]];
+    
+    [self.CorrectOrDrinkLabel sizeToFit];
+    self.CorrectOrDrinkLabel.hidden = NO;
+}
+
+- (void) moveCardToPositionIndex:(NSNumber *)num
+{
+    NSInteger index = [num integerValue];
     self.CorrectOrDrinkLabel.hidden = YES;
     
     switch (index) {
@@ -213,21 +241,53 @@
             
             gameState = HIGHLOW;
             [self initButtons];
+            
             break;
         }
-//        case HIGHLOW:
-//        {
-//            // TODD: implement this feature
-//        }
+        case HIGHLOW:
+        {
+            CGRect btFrame = self.displayCard.frame;
+            btFrame.origin.x = 80;
+            btFrame.origin.y = 30;
+            [self.displayCard setBackgroundImage:[UIImage imageNamed:@"cardBack"] forState:UIControlStateNormal];
+            [self.displayCard setTitle:@"" forState:UIControlStateNormal];
+            
+            self.secondCard = [[UIButton alloc] initWithFrame:btFrame];
+            [self.secondCard setBackgroundImage:[UIImage imageNamed:@"cardFront"] forState:UIControlStateNormal];
+            [self.secondCard setTitle:[self.currentCard contents] forState:UIControlStateNormal];
+            [self setTextColor:self.secondCard];
+            
+            NSLog(@"%@", [self.currentCard contents]);
+            [self.view addSubview:self.secondCard];
+            
+            gameState = INOUT;
+            [self initButtons];
+            
+            break;
+            
+        }
         default:
             break;
     }
     
 }
 
+- (void) setStatusLabelForCorrect:(BOOL)correct
+{
+    if (correct)
+        self.CorrectOrDrinkLabel.text = @"CORRECT";
+    else
+        self.CorrectOrDrinkLabel.text = @"Take a drink";
+}
+
+- (void) clearStatusLabel
+{
+    self.CorrectOrDrinkLabel.text = @"";
+}
+
 - (void) setTextColor:(UIButton *)button
 {
-    if (self.currentCard.smokeOrFire == FIRE)
+    if ([PlayingCard smokeOrFire:self.currentCard] == FIRE)
         [button setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
     else
         [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
