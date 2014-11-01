@@ -19,6 +19,7 @@
 // Checkers
 + (NSInteger) smokeOrFire:(PlayingCard *)card;
 + (NSInteger) highOrLow:(PlayingCard *)currentCard withPreviousCard:(PlayingCard *)previousCard;
++ (NSInteger) inOrOut:(PlayingCard *)currentCard withSecondCard:(PlayingCard *)secondCard withFirstCard:(PlayingCard *)firstCard;
 
 - (NSString *) contents;
 

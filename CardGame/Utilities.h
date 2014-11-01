@@ -22,4 +22,10 @@ enum HighOrLow
     PUSH
 };
 
+enum InOrOut
+{
+    IN,
+    OUT
+};
+
 #endif

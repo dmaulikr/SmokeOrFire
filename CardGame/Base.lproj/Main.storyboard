@@ -56,14 +56,36 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sJz-ng-vNn">
+                                <rect key="frame" x="80" y="400" width="46" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="firstSuitPressed:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="evW-OJ-RcX"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jMN-mr-c0a">
+                                <rect key="frame" x="185" y="400" width="46" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="secondSuitPressed:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="Frh-Lo-lR9"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.25098040699958801" green="0.50196081399917603" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
                     <connections>
                         <outlet property="CorrectOrDrinkLabel" destination="qia-Dv-x6W" id="4az-8E-OXs"/>
                         <outlet property="displayCard" destination="QM3-ri-K5n" id="ZaX-AQ-IL1"/>
+                        <outlet property="firstSuit" destination="sJz-ng-vNn" id="xO2-a9-946"/>
                         <outlet property="leftButton" destination="XO8-9v-u95" id="1V5-HD-aw5"/>
                         <outlet property="rightButton" destination="lBu-wV-LfT" id="4Mn-WH-Lh1"/>
+                        <outlet property="secondSuit" destination="jMN-mr-c0a" id="nxt-zO-jBb"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>

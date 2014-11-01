@@ -16,7 +16,7 @@ enum GameState
     HIGHLOW     = 1,
     INOUT,
     SUIT,
-    GIVETAKE,
+    REPLAY,
 };
 
 @end
