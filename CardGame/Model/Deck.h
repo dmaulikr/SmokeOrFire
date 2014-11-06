@@ -14,6 +14,8 @@
 - (void)addCard:(Card *)card atTop:(BOOL)atTop;
 - (void)addCard:(Card *)card;
 
+- (NSMutableArray *) cards;
+
 - (Card *)drawRandomCard;
 
 @end

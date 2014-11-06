@@ -10,7 +10,8 @@
 
 @interface Deck()
 
-@property (strong, nonatomic) NSMutableArray *cards; // of Card
+// mutable array of type Card
+@property (strong, nonatomic) NSMutableArray *cards;
 @end
 
 @implementation Deck
@@ -22,6 +23,7 @@
     return _cards;
 }
 
+// adds a card to the top of the deck
 - (void)addCard:(Card *)card atTop:(BOOL)atTop
 {
     if (atTop)
@@ -40,6 +42,7 @@
     [self addCard:card atTop:NO];
 }
 
+// draws a random card from the deck
 - (Card *)drawRandomCard
 {
     Card *randomCard = nil;

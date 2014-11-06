@@ -10,4 +10,6 @@
 
 @interface PlayingCardDeck : Deck
 
+- (instancetype) init;
+
 @end

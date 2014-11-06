@@ -13,7 +13,7 @@
 enum GameState
 {
     SMOKEFIRE   = 0,
-    HIGHLOW     = 1,
+    HIGHLOW,
     INOUT,
     SUIT,
     REPLAY,

@@ -28,6 +28,10 @@
 		4335906A1A02097400188628 /* cardBack.png in Resources */ = {isa = PBXBuildFile; fileRef = 433590691A02097400188628 /* cardBack.png */; };
 		433590701A020E0300188628 /* cardFront.png in Resources */ = {isa = PBXBuildFile; fileRef = 4335906F1A020E0300188628 /* cardFront.png */; };
 		433590731A02D52E00188628 /* GameLogic.m in Sources */ = {isa = PBXBuildFile; fileRef = 433590721A02D52E00188628 /* GameLogic.m */; };
+		435687F31A086D9F0080DD0B /* ThumbDown.png in Resources */ = {isa = PBXBuildFile; fileRef = 435687F21A086D9F0080DD0B /* ThumbDown.png */; };
+		4356884F1A0B32270080DD0B /* CardGameHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4356884E1A0B32270080DD0B /* CardGameHomeViewController.m */; };
+		43BCFD481A0857BD001E4CAA /* ThumbUp.png in Resources */ = {isa = PBXBuildFile; fileRef = 43BCFD471A0857BD001E4CAA /* ThumbUp.png */; };
+		43BCFD4A1A085AAB001E4CAA /* appIconCard.png in Resources */ = {isa = PBXBuildFile; fileRef = 43BCFD491A085AAB001E4CAA /* appIconCard.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -73,6 +77,11 @@
 		4335906F1A020E0300188628 /* cardFront.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cardFront.png; sourceTree = SOURCE_ROOT; };
 		433590711A02D52E00188628 /* GameLogic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GameLogic.h; path = Model/GameLogic.h; sourceTree = "<group>"; };
 		433590721A02D52E00188628 /* GameLogic.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GameLogic.m; path = Model/GameLogic.m; sourceTree = "<group>"; };
+		435687F21A086D9F0080DD0B /* ThumbDown.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ThumbDown.png; sourceTree = SOURCE_ROOT; };
+		4356884D1A0B32270080DD0B /* CardGameHomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CardGameHomeViewController.h; sourceTree = "<group>"; };
+		4356884E1A0B32270080DD0B /* CardGameHomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CardGameHomeViewController.m; sourceTree = "<group>"; };
+		43BCFD471A0857BD001E4CAA /* ThumbUp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ThumbUp.png; sourceTree = SOURCE_ROOT; };
+		43BCFD491A085AAB001E4CAA /* appIconCard.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = appIconCard.png; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -133,6 +142,8 @@
 			isa = PBXGroup;
 			children = (
 				4335903819DA5D4D00188628 /* Main.storyboard */,
+				4356884D1A0B32270080DD0B /* CardGameHomeViewController.h */,
+				4356884E1A0B32270080DD0B /* CardGameHomeViewController.m */,
 				4335903B19DA5D4D00188628 /* Card_GameViewController.h */,
 				4335903C19DA5D4D00188628 /* Card_GameViewController.m */,
 				4335906719DBCE2100188628 /* Model */,
@@ -147,6 +158,9 @@
 		4335902D19DA5D4D00188628 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				435687F21A086D9F0080DD0B /* ThumbDown.png */,
+				43BCFD491A085AAB001E4CAA /* appIconCard.png */,
+				43BCFD471A0857BD001E4CAA /* ThumbUp.png */,
 				4335903519DA5D4D00188628 /* Card_GameAppDelegate.h */,
 				4335903619DA5D4D00188628 /* Card_GameAppDelegate.m */,
 				4335902E19DA5D4D00188628 /* CardGame-Info.plist */,
@@ -270,10 +284,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				435687F31A086D9F0080DD0B /* ThumbDown.png in Resources */,
 				433590701A020E0300188628 /* cardFront.png in Resources */,
 				4335903F19DA5D4D00188628 /* Images.xcassets in Resources */,
+				43BCFD481A0857BD001E4CAA /* ThumbUp.png in Resources */,
 				4335903119DA5D4D00188628 /* InfoPlist.strings in Resources */,
 				4335906A1A02097400188628 /* cardBack.png in Resources */,
+				43BCFD4A1A085AAB001E4CAA /* appIconCard.png in Resources */,
 				4335903A19DA5D4D00188628 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -293,6 +310,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4356884F1A0B32270080DD0B /* CardGameHomeViewController.m in Sources */,
 				4335906019DBCD6000188628 /* Deck.m in Sources */,
 				4335906319DBCDA400188628 /* PlayingCard.m in Sources */,
 				4335903719DA5D4D00188628 /* Card_GameAppDelegate.m in Sources */,
@@ -507,6 +525,7 @@
 				4335905719DA5D4D00188628 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		4335905819DA5D4D00188628 /* Build configuration list for PBXNativeTarget "CardGameTests" */ = {
 			isa = XCConfigurationList;
@@ -515,6 +534,7 @@
 				4335905A19DA5D4D00188628 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

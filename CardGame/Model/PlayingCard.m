@@ -34,6 +34,7 @@
     return @[@"?", @"2", @"3", @"4", @"5", @"6", @"7", @"8", @"9", @"10", @"J", @"Q", @"K", @"A"];
 }
 
+// getter for maxRank
 + (NSUInteger) maxRank
 {
     return [[self rankStrings] count] - 1;
@@ -57,8 +58,7 @@
         _rank = rank;
 }
 
-// TODO: why isnt this implementation working in GameLogic?
-//      doesnt recognize object suit??
+// Factory methods for game logic
 + (NSInteger) smokeOrFire:(PlayingCard *)card
 {
     if ([card.suit isEqualToString:@"♣︎" ] || [card.suit isEqualToString:@"♠︎"])
@@ -82,22 +82,10 @@
 
 + (NSInteger) inOrOut:(PlayingCard *)currentCard withSecondCard:(PlayingCard *)secondCard withFirstCard:(PlayingCard *)firstCard
 {
-    if (currentCard.rank >= secondCard.rank)
-    {
-        if (currentCard.rank <= firstCard.rank)
-            return IN;
-        else
-            return OUT;
-    }
-    else if (currentCard.rank < secondCard.rank)
-    {
-        if (currentCard.rank >= firstCard.rank)
-            return IN;
-        else
-            return OUT;
-    }
+    if ((currentCard.rank >= secondCard.rank && currentCard.rank <= firstCard.rank) || (currentCard.rank <= secondCard.rank && currentCard.rank >= firstCard.rank))
+        return IN;
     else
-        return -1;
+        return OUT;
 }
 
 // ability to be copied

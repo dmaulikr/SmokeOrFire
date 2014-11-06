@@ -15,6 +15,7 @@
 
 @implementation Card
 
+// method for mathing two cards
 - (int)match:(NSArray *)otherCards
 {
     int score = 0;
