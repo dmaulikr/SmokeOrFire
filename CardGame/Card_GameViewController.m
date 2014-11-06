@@ -18,7 +18,7 @@
 @property (strong, nonatomic) IBOutlet UIButton *displayCard;
 @property (strong, nonatomic) IBOutlet UIButton *rightButton;
 @property (strong, nonatomic) IBOutlet UILabel *CorrectOrDrinkLabel;
-
+@property (strong, nonatomic) IBOutlet UIButton *PlayAgainButton;
 
 /* Card Images (at top of screen) */
 @property (strong, nonatomic) UIButton *firstCard;
@@ -64,6 +64,12 @@
 
 - (void) viewDidLoad
 {
+    /* initial gameState */
+    gameState = SMOKEFIRE;
+    [self initButtons];
+    
+    /* initialize variables */
+    self.flipCount = 0;
     self.smokeOrFireGuess = -1;
     self.highOrLowGuess = -1;
     self.inOrOutGuess = -1;
@@ -73,11 +79,24 @@
     self.deck = [[PlayingCardDeck alloc] init];
     
     /* hide button or label */
+    self.leftButton.hidden = NO;
+    self.rightButton.hidden = NO;
     self.firstSuit.hidden = YES;
     self.secondSuit.hidden = YES;
     self.CorrectOrDrinkLabel.hidden = YES;
+    self.PlayAgainButton.hidden = YES;
+    self.firstCard.hidden = YES;
+    self.secondCard.hidden = YES;
+    self.thirdCard.hidden = YES;
+    self.fourthCard.hidden = YES;
+    self.ThumbView1.hidden = YES;
+    self.ThumbView2.hidden = YES;
+    self.ThumbView3.hidden = YES;
+    self.ThumbView4.hidden = YES;
     
     /* disable user interaction */
+    self.leftButton.userInteractionEnabled = YES;
+    self.rightButton.userInteractionEnabled = YES;
     self.firstCard.userInteractionEnabled = NO;
     self.secondCard.userInteractionEnabled = NO;
     self.thirdCard.userInteractionEnabled = NO;
@@ -85,6 +104,7 @@
     self.firstSuit.userInteractionEnabled = NO;
     self.secondSuit.userInteractionEnabled = NO;
     self.displayCard.userInteractionEnabled = NO;
+    self.PlayAgainButton.userInteractionEnabled = NO;
     
     /* display cardBack */
     [self.displayCard setContentMode:UIViewContentModeScaleAspectFit];
@@ -92,9 +112,6 @@
     
     /* create an array to hold the history of cards */
     self.cards = [NSMutableArray array];
-    
-    /* initial gameState */
-    gameState = SMOKEFIRE;
 }
 
 - (void) initButtons
@@ -153,7 +170,14 @@
             
             break;
         case REPLAY:
-            // TODO: add a play again button here
+            self.PlayAgainButton.hidden = NO;
+            self.PlayAgainButton.userInteractionEnabled = YES;
+            
+            self.leftButton.hidden = YES;
+            self.rightButton.hidden = YES;
+            self.firstSuit.hidden = YES;
+            self.secondSuit.hidden = YES;
+            
             break;
         default:
             break;
@@ -533,8 +557,7 @@
             
             /* change to next gameState */
             gameState = REPLAY;
-            // TODO: undue this comment for the initButtons after play again button is finished
-            // [self initButtons];
+            [self initButtons];
             
             break;
         }
@@ -542,6 +565,9 @@
             break;
     }
     
+}
+- (IBAction)PlayAgain:(id)sender {
+    [self viewDidLoad];
 }
 
 /* Additional helper methods */

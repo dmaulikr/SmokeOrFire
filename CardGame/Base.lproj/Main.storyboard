@@ -123,12 +123,23 @@
                                 <rect key="frame" x="255" y="130" width="30" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8UM-ks-dw9">
+                                <rect key="frame" x="124" y="368" width="73" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Play Again">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="PlayAgain:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="vdr-T6-dlK"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.25098040699958801" green="0.50196081399917603" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
                     <navigationItem key="navigationItem" id="UNX-fw-eKR"/>
                     <connections>
                         <outlet property="CorrectOrDrinkLabel" destination="qia-Dv-x6W" id="4az-8E-OXs"/>
+                        <outlet property="PlayAgainButton" destination="8UM-ks-dw9" id="I5q-LT-H1S"/>
                         <outlet property="ThumbView1" destination="9rp-WC-XiU" id="ZWb-9A-2TA"/>
                         <outlet property="ThumbView2" destination="LqL-6P-m7M" id="Tkr-dx-1uG"/>
                         <outlet property="ThumbView3" destination="ix3-KQ-XMh" id="UBC-n8-9Qs"/>
