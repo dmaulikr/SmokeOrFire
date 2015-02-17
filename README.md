@@ -2,7 +2,7 @@ SmokeOrFire
 ===========
 **Made by Nick Blackburn**
 
-Complete finished game! (however, it is currently not available in the Apple App Store.. Coming Soon!)
+Complete finished game! (however, it is currently not available in the Apple App Store.. Coming Soon!).
 Making a fun card game to play with a group of friends in a social setting named Smoke Or Fire.
   - home screen
     - press play
