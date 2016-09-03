@@ -118,6 +118,9 @@
 {
     switch (gameState) {
         case SMOKEFIRE:
+            self.leftButton.hidden = YES;
+            self.rightButton.hidden = YES;
+            
             /* Left Button init */
             [self.leftButton setTitle:@"Smoke" forState:UIControlStateNormal];
             [self.leftButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
@@ -126,28 +129,46 @@
             [self.rightButton setTitle:@"Fire" forState:UIControlStateNormal];
             [self.rightButton setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
             
+            self.leftButton.hidden = NO;
+            self.rightButton.hidden = NO;
+            
             break;
         case HIGHLOW:
+            self.leftButton.hidden = YES;
+            self.rightButton.hidden = YES;
+            
             /* Higher Lower init */
             [self.leftButton setTitle:@"Higher" forState:UIControlStateNormal];
             [self.rightButton setTitle:@"Lower" forState:UIControlStateNormal];
             
+            self.leftButton.hidden = NO;
+            self.rightButton.hidden = NO;
+            
             break;
         case INOUT:
+            self.leftButton.hidden = YES;
+            self.rightButton.hidden = YES;
+            
             /* In Out init */
             [self.leftButton setTitle:@"Inside" forState:UIControlStateNormal];
             [self.rightButton setTitle:@"Outside" forState:UIControlStateNormal];
             
-            self.firstSuit.userInteractionEnabled = YES;
-            self.secondSuit.userInteractionEnabled = YES;
+            self.leftButton.hidden = NO;
+            self.rightButton.hidden = NO;
             
             break;
         case SUIT:
+            self.leftButton.hidden = YES;
+            self.rightButton.hidden = YES;
+            
+            self.firstSuit.userInteractionEnabled = YES;
+            self.secondSuit.userInteractionEnabled = YES;
             /* Suit init
                 left button */
             [self.leftButton setTitle:@"♥︎" forState:UIControlStateNormal];
             self.leftButton.font = [UIFont systemFontOfSize:28.0];
             [self.leftButton setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+            self.leftButton.hidden = NO;
             
             /*  right button */
             [self.rightButton setTitle:@"♠︎" forState:UIControlStateNormal];
@@ -165,6 +186,8 @@
             [self.secondSuit setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
             
             /* hidden status */
+            self.leftButton.hidden = NO;
+            self.rightButton.hidden = NO;
             self.firstSuit.hidden = NO;
             self.secondSuit.hidden = NO;
             
@@ -173,6 +196,8 @@
             self.PlayAgainButton.hidden = NO;
             self.PlayAgainButton.userInteractionEnabled = YES;
             
+            [self.leftButton setTitle:@"" forState:UIControlStateNormal];
+            [self.rightButton setTitle:@"" forState:UIControlStateNormal];
             self.leftButton.hidden = YES;
             self.rightButton.hidden = YES;
             self.firstSuit.hidden = YES;
@@ -378,7 +403,7 @@
     [self performSelector:@selector(moveCardToPositionIndex:) withObject:[NSNumber numberWithInt:SMOKEFIRE] afterDelay:2.0];
     [self setStatusLabelForCorrect:[self checkSmokeOrFire]];
     
-    [self.CorrectOrDrinkLabel sizeToFit];
+//    [self.CorrectOrDrinkLabel sizeToFit];
     self.CorrectOrDrinkLabel.hidden = NO;
 }
 
@@ -387,7 +412,7 @@
     [self performSelector:@selector(moveCardToPositionIndex:) withObject:[NSNumber numberWithInt:HIGHLOW] afterDelay:2.0];
     [self setStatusLabelForCorrect:[self checkHigherLower]];
     
-    [self.CorrectOrDrinkLabel sizeToFit];
+//    [self.CorrectOrDrinkLabel sizeToFit];
     self.CorrectOrDrinkLabel.hidden = NO;
 }
 
@@ -396,7 +421,7 @@
     [self performSelector:@selector(moveCardToPositionIndex:) withObject:[NSNumber numberWithInt:INOUT] afterDelay:2.0];
     [self setStatusLabelForCorrect:[self checkInOut]];
     
-    [self.CorrectOrDrinkLabel sizeToFit];
+//    [self.CorrectOrDrinkLabel sizeToFit];
     self.CorrectOrDrinkLabel.hidden = NO;
 }
 
@@ -405,7 +430,7 @@
     [self performSelector:@selector(moveCardToPositionIndex:) withObject:[NSNumber numberWithInt:SUIT] afterDelay:2.0];
     [self setStatusLabelForCorrect:[self checkSuit]];
     
-    [self.CorrectOrDrinkLabel sizeToFit];
+//    [self.CorrectOrDrinkLabel sizeToFit];
     self.CorrectOrDrinkLabel.hidden = NO;
 }
 
@@ -580,7 +605,7 @@
     }
     else
     {
-        self.CorrectOrDrinkLabel.text = @"Take a drink";
+        self.CorrectOrDrinkLabel.text = @"WRONG";
         self.correctLabelStatus = NO;
     }
 }
