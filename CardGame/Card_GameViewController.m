@@ -466,6 +466,7 @@
             [self.firstCard setBackgroundImage:[UIImage imageNamed:@"cardFront"] forState:UIControlStateNormal];
             [self.firstCard setTitle:[self.currentCard contents] forState:UIControlStateNormal];
             [self setTextColor:self.firstCard];
+            self.firstCard.userInteractionEnabled = NO;
             [self.view addSubview:self.firstCard];
             
             /* initialzes and sets first thumb Image View */
@@ -500,6 +501,7 @@
             [self.secondCard setBackgroundImage:[UIImage imageNamed:@"cardFront"] forState:UIControlStateNormal];
             [self.secondCard setTitle:[self.currentCard contents] forState:UIControlStateNormal];
             [self setTextColor:self.secondCard];
+            self.secondCard.userInteractionEnabled = NO;
             [self.view addSubview:self.secondCard];
             
             /* initializes and sets second thumb Image View */
@@ -534,6 +536,7 @@
             [self.thirdCard setBackgroundImage:[UIImage imageNamed:@"cardFront"] forState:UIControlStateNormal];
             [self.thirdCard setTitle:[self.currentCard contents] forState:UIControlStateNormal];
             [self setTextColor:self.thirdCard];
+            self.thirdCard.userInteractionEnabled = NO;
             [self.view addSubview:self.thirdCard];
             
             /* initializes and sets third thumb Image View */
@@ -568,6 +571,7 @@
             [self.fourthCard setBackgroundImage:[UIImage imageNamed:@"cardFront"] forState:UIControlStateNormal];
             [self.fourthCard setTitle:[self.currentCard contents] forState:UIControlStateNormal];
             [self setTextColor:self.fourthCard];
+            self.fourthCard.userInteractionEnabled = NO;
             [self.view addSubview:self.fourthCard];
             
             /* initialzes and sets fourth thumb Image View */
